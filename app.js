@@ -1,11 +1,18 @@
 const { create } = require("ipfs-http-client");
 const fs = require("fs")
+// Login to infura.io and go to IPFS to create a project, after creating the project you will get the INFURA_SECRET_KEY and INFURA_ID set them here.
+const INFURA_ID="";
+const INFURA_SECRET_KEY=""
+const auth = 'Basic ' + Buffer.from(INFURA_ID + ':' + INFURA_SECRET_KEY).toString('base64');
 async function ipfsClient() {
     const ipfs = await create(
         {
             host: "ipfs.infura.io",
             port: 5001,
-            protocol: "https"
+            protocol: "https",
+              headers: {
+               authorization: auth, // infura auth credentails
+           },
         }
     );
     return ipfs;
